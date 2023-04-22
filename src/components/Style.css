@@ -25,12 +25,14 @@
     margin-right: 54px;
     color: #33A0FF;
     cursor: pointer;
+    text-align: center;
 }
 
 .listInactive {
     margin-right: 54px;
     color: #22262A;
     cursor: pointer;
+    text-align: center;
 }
 
 .products__section {
@@ -195,7 +197,6 @@
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     line-height: 160%;
-    text-align: center;
 }
 
 .services__container {
@@ -590,7 +591,10 @@ color: #FF4252;
     border-bottom: 3px solid #F6F7F8;
 }
 
-@media only screen and (max-width: 600px) and (min-width: 300px)  {
+@media only screen and (max-width: 700px) and (min-width: 300px)  {
+    .size-36{
+        font-size: 28px;
+    }
     .products__section{
         grid-template-columns: 1fr ;
     }
@@ -601,7 +605,7 @@ color: #FF4252;
         display: none;
     }
     .slick-slider{
-        width: 462px;
+        width: 100vw;
         padding: 0 62px;
     }
     .slick-next:before {
@@ -616,6 +620,7 @@ color: #FF4252;
 }
 .banner{
     height: 300px;
+    margin-top: 4rem;
 }
 .banner__image {
     padding-left: 14rem;
@@ -633,9 +638,15 @@ color: #FF4252;
 .w-70{
     width: 100%;
 }
+.banner3{
+    height: 230px;
+}
+.banner3__image{
+    height: 230px;
+}
 .banner__content {
-    margin-top: 5rem;
-    padding-left: 3rem;
+    margin-top: 2rem;
+    padding-left: 2rem;
 
 }
 .size-66 {
@@ -646,10 +657,10 @@ color: #FF4252;
 }
 .banner2{
     padding: 0;
-    height: 328px;
+    height: 230px;
 }
 .banner2__image{
-    height: 328px;
+    height: 230px;
     bottom: 0;
 }
 .label2 {
@@ -669,5 +680,36 @@ color: #FF4252;
 }
 .cart__header{
     margin-bottom: 0;
+    margin-top: 4rem;
 }
+.banner__image{
+    padding-left: 12rem;
+    width: 100vw;
+}
+.slick-next{
+    right: 10px;
+}
+.store__name__container{
+    margin-top: 4rem;
+}
+.quantity__flex{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 10px;
+}
+.delete__item{
+    position: relative;
+    top: -32px;
+    font-size: 10px;
+    width: 9px;
+    height: 9px;
+    left: 2%;
+
+}
+.cart__product__description{
+    gap: 0;
+    width: 30%;
+}
+
 }

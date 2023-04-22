@@ -4,12 +4,15 @@ import Search from "../../Images/search_icon.svg";
 import iShop from "../../Images/iSHOP Logo.png";
 import "./Header.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { cartContext } from "../../App";
 
 const Header = () => {
   const cart = useContext(cartContext);
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
+  const [width,setWidth] = useState(window.innerWidth);
 
   const totalPrice = () =>{
     let totalPrice = 0;
@@ -18,9 +21,19 @@ const Header = () => {
     })
     return totalPrice;
   }
+  
+  useEffect(() =>{
+    const resize = () =>{
+     setWidth(window.innerWidth);
+    } 
+    window.addEventListener('resize',resize);
+    return () =>{
+     window.removeEventListener('resize',resize);
+    }
+   })
   return (
     <>
-      <div className="header__container">
+      <div className="header__container" style={{ transform: open || width > 600 ? "translateY(0)" : "translateY(-200%)" }}>
         <div className="flex mr-36">
           <img className="mr-8" src={Profile} alt="userProfile" />
           <p className="label1">My Profile</p>
@@ -36,12 +49,13 @@ const Header = () => {
           <img src={Search} alt="Search" />
         </div>
       </div>
-      <div className="navbar__container">
-        <div style={{ margin: "2.5rem 0 1rem 0" }}>
+      <div className="navbar__container" style={{marginBottom : open ?  "18rem" : "0",
+    transition:  "0.2s"}}>
+        <div className="ishop__image" style={{ margin: "2.5rem 0 1rem 0" }}>
           <img src={iShop} alt="iShop" />
         </div>
         <div>
-          <ul className="nav__list">
+          <ul className="nav__list"   style={{ transform: open || width >  600? "translateY(0)" : "translateY(-200%)" }}>
             <li className="label1 mr-64">
               <NavLink
                 to="/"
@@ -89,6 +103,19 @@ const Header = () => {
             </li>
           </ul>
         </div>
+        <div className="burger" onClick={() => setOpen((open) => !open)}>
+        <div
+          className="burger__line"
+          style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
+        ></div>
+        <div className="burger__line" style={{ opacity: open ? "0" : "1" }}>
+          {" "}
+        </div>
+        <div
+          className="burger__line"
+          style={{ transform: open ? "rotate(-45deg)" : "rotate(0deg)" }}
+        ></div>
+      </div>
       </div>
     </>
   );

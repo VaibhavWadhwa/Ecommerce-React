@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { cartContext } from "../../App";
 
 const Cart = () => {
   const cart = useContext(cartContext);
+  const [width,setWidth] = useState(window.innerWidth);
 
   const increaseQuantityHandler = (e, id) => {
     e.stopPropagation();
@@ -39,12 +40,22 @@ const Cart = () => {
     return totalPrice;
   }
 
+  useEffect(() =>{
+    const resize = () =>{
+     setWidth(window.innerWidth);
+    } 
+    window.addEventListener('resize',resize);
+    return () =>{
+     window.removeEventListener('resize',resize);
+    }
+   })
+
   return (
     <>
       <div className="cart__header">
         <p>Cart</p>
       </div>
-      <div className="cart__item border__bottom">
+   {width > 600 &&    <div className="cart__item border__bottom">
         <p className="flex-6" style={{ color: "#22262A" }}>
           PRODUCT
         </p>
@@ -57,10 +68,10 @@ const Cart = () => {
         <p className="flex-2" style={{ color: "#22262A" }}>
           UNIT PRICE
         </p>
-      </div>
+      </div> }
       {Object.entries(cart.cartDetails).map(([key, value]) => {
         return (
-          <div className="cart__item cart__item__border" key={key}>
+       width > 600 ?   <div className="cart__item cart__item__border" key={key}>
             <div className="flex-6 label15 cart__product__description">
               <p
                 className="delete__item"
@@ -100,6 +111,52 @@ const Cart = () => {
               </div>
             </div>
             <p className="flex-2 label15">₹{parseInt(value.price)}</p>
+          </div> : <div className="cart__item cart__item__border" key={key}>
+          <p
+                className="delete__item"
+                onClick={(e) => deleteItemHandler(e, key)}
+              >
+                X
+              </p>
+            <div className="label15 cart__product__description">
+            
+              <img width="63px" height="63px" src={value.image} alt="cart" />
+             
+            </div>
+            <div>
+            <p>{value.name}</p>
+      
+            <div className="label15 quantity__flex">
+              <div className="quantity__container">
+                <p
+                  style={{
+                    color: "#33a0ff",
+                    fontSize: "18px",
+                    cursor: "pointer",
+                  }}
+                  onClick={(e) => decreaseQuantityHandler(e, key)}
+                >
+                  -
+                </p>
+                <p>{value.quantity}</p>
+                <p
+                  style={{
+                    color: "#33a0ff",
+                    fontSize: "18px",
+                    cursor: "pointer",
+                  }}
+                  onClick={(e) => increaseQuantityHandler(e, key)}
+                >
+                  +
+                </p>
+              </div>
+              <p className=" label15">
+              ₹{parseInt(value.price) * parseInt(value.quantity)}
+            </p>
+            </div>
+          
+       
+          </div>
           </div>
         );
       })}
